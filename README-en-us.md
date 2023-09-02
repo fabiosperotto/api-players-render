@@ -26,6 +26,28 @@ This project is part of a learning series about APIs with Nodejs and PHP. If you
 - mysql2 3.6.0;
 - sequelize 3.6.0.
 
+## Installation and Initialization
+
+Fork or download this project and:
+
+```bash
+$ cd api-players-render
+$ cp .env.example .env
+# set de .env variables
+$ npm install
+$ node app.js
+```
+
+## Deploy on Render
+
+1. Create the PostgreSQL database service;
+2. Create a web service;
+3. Connect your github repository in Render;
+4. Set the environment variables;
+5. Deploy your app.
+
+For more docs see the [Render docs](https://render.com/docs).
+
 ## Contributing to the project
 
 Package updates, bug fixes and security improvements will be accepted. New features only in the reference project.
