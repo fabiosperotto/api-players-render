@@ -10,22 +10,20 @@ app.use(
     origin: '*',
   })
 );
-console.log('host: ' + process.env.DBHOST);
-console.log('didialect 1: ' + process.env.DBDIALECT);
-console.log('TESTE: ' + process.env.TESTE);
+
 //BANCO DE DADOS
 const models = require('./app/models'); //inicializa a config com sequelize
 
 //testando conexao
-try {
-  models.sequelize.authenticate();
-} catch (error) {
-  console.error('Nao foi possivel se conectar com o BD:', error);
-}
+// try {
+//   models.sequelize.authenticate();
+// } catch (error) {
+//   console.error('Nao foi possivel se conectar com o BD:', error);
+// }
 
 //conectando e sincronizando com BD
 models.sequelize
-  .sync({}) //{ force: true } --> para forcar a recriacao do banco
+  .sync({ force: true }) //{ force: true } --> para forcar a recriacao do banco
   .then(() => {
     console.log('sincronizacao com bd...');
   })
