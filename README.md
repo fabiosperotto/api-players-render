@@ -28,7 +28,7 @@ Este projeto faz parte de uma série de aprendizado em APIs com Nodejs e PHP. Se
 
 ## Instalação e Inicialização
 
-Faça o fork do projeto ou o download e:
+Faça o download do projeto e:
 
 ```bash
 $ cd api-players-render
@@ -37,6 +37,12 @@ $ cp .env.example .env
 $ npm install
 $ node app.js
 ```
+
+Lembre-se: este é todo um projeto pronto para ser executado, é um projeto educacional. Para o uso em seus projeto existente, verifique somente pelos seguintes arquivos:
+
+- .env-example: todos os dados que vai precisar para o Render. Ao adicionar a URL externa que for criar no serviço de banco de dados do Render, não esqueça de adicionar ao final da URL: ?ssl=true.
+- /app/models/index.js: o projeto usa Sequelize, atente para as configurações que são funcionais ao PostgreSQL;
+- package.json: atente para os pacotes que foram utilizados, o Render fornece o SGBD somente para PosgreSQL.
 
 ## Deploy no Render
 
