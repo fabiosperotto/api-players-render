@@ -1,23 +1,60 @@
-module.exports = (sequelize, DataTypes) => {
-  const Jogador = sequelize.define('jogador', {
-    nome: {
-      type: DataTypes.STRING(80),
-      allowNull: false,
-    },
-    ataque: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    defesa: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    pontos_vida: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: 100,
-    },
-  });
+const { Model, DataTypes } = require('sequelize');
+const db = require('./conexao.js');
 
-  return Jogador;
-};
+class Jogador extends Model {
+
+    //sequencia de getters e setters
+    receberDano(pontosAtaqueAdversario){
+        this.pontos_vida = this.pontos_vida - pontosAtaqueAdversario;
+    }
+
+    static async findAllComEquipamentos() {
+        return this.findAll({
+            include: {
+                association: 'equipamentos',
+                required: false
+            }
+        });
+    }
+
+
+}
+
+Jogador.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
+
+        nome: {
+            type: DataTypes.STRING(80),
+            allowNull: false
+        },
+
+        ataque: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+
+        defesa: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+
+        pontos_vida: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 100
+        }
+    },
+    {
+        sequelize: db,
+        modelName: 'Jogador',
+        tableName: 'jogador'
+    }
+);
+
+module.exports = Jogador;

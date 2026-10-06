@@ -3,48 +3,37 @@ const express = require('express');
 const config = require('./config.js');
 const cors = require('cors');
 const app = express();
-//PRE-CONFIGURACAO
-app.use(express.json()); //parser dados de requisicoes em JSON
+app.use(express.json()); //aqui recebo e entrego documentos JSON
 app.use(
-  cors({
-    origin: '*',
-  })
+    cors({
+        origin: '*',
+        // methods: ['GET']
+    })
 );
-
-//BANCO DE DADOS
-const models = require('./app/models'); //inicializa a config com sequelize
-
-//testando conexao
-// try {
-//   models.sequelize.authenticate();
-// } catch (error) {
-//   console.error('Nao foi possivel se conectar com o BD:', error);
-// }
-
-//conectando e sincronizando com BD
-models.sequelize
-  .sync({ force: true }) //{ force: true } --> para forcar a recriacao do banco
-  .then(() => {
-    console.log('sincronizacao com bd...');
-  })
-  .catch((err) => {
-    console.log('falha ao sincronizar: ' + err.message);
-  });
 
 //ROTAS
 app.get('/', (request, response) => {
-  response.json({
-    //documento JSON
-    message: 'Game API',
-    version: '1.0',
-  });
+    response.json({
+        //documento JSON
+        message: 'API para jogadores',
+        version: '1.0',
+        description: "API de players para o jogo XPTO veja a documentacao em https://app.swaggerhub.com/apis/personal-85a-aff/game-api-sample/1.0"
+    });
 });
+
 const jogadorRotas = require('./app/routes/jogador.routes.js');
 const clienteRotas = require('./app/routes/cliente.routes.js');
 app.use(jogadorRotas);
 app.use(clienteRotas);
 
 //RODANDO SERVER
-app.listen(config.port, () => {
-  console.log('servidor on-line');
-});
+const conexao = require('./app/models/index.js'); //inicializa a config com sequelize
+
+//RODANDO SERVER
+if (require.main === module) { //se for chamado diretamente pelo arquivo, do contrario eh testes
+    app.listen(config.port, () => {
+        console.log('servidor on-line');
+    });
+}
+
+module.exports = app; //para testes unitarios

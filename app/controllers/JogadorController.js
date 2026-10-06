@@ -4,12 +4,10 @@ const ajv = new Ajv();
 const schema = require('../schemas/jogador/novoJogador.js');
 const validacao = ajv.compile(schema);
 //models
-const models = require('../models');
-const Jogador = models.jogador;
-const Equipamento = models.equipamento;
+const Jogador = require('../models/Jogador.js');
 
 exports.findAll = (request, response) => {
-  Jogador.findAll({ include: Equipamento }) // {where: ...}
+  Jogador.findAllComEquipamentos()
     .then((data) => {
       response.status(200).json(data);
     })

@@ -2,7 +2,7 @@ module.exports = {
   port: process.env.PORT || 3000,
   jwt: {
     secret: process.env.SECRET,
-    expiration: 3600,
+    expiration: process.env.JWT_EXPIRATION_TIME,
   },
   dbconfig: {
     host: process.env.DBHOST,

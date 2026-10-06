@@ -1,10 +1,16 @@
 module.exports = function (models) {
-  models.jogador.hasMany(models.equipamento, {
-    foreignKey: 'id_jogador', //nome da FK
-    onDelete: 'SET NULL', //configuracao da FK
-  });
-  models.equipamento.belongsTo(models.jogador, {
-    foreignKey: 'id_jogador',
-    onDelete: 'SET NULL',
-  });
+
+    models.Jogador.hasMany(models.Equipamento, {
+        foreignKey: 'id_jogador',
+        sourceKey: 'id',
+        as: 'equipamentos'
+    });
+
+    models.Equipamento.belongsTo(models.Jogador, {
+        foreignKey: 'id_jogador',
+        targetKey: 'id',
+        as: 'jogador',
+        onDelete: 'SET NULL',
+    });
+
 };
